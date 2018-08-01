@@ -29,7 +29,19 @@ var criaController = function (jogo) {
             jogo.processaChute(chute);
         }
         exibeLacunas();
+        setTimeout(function(){
+            if (jogo.ganhouOuPerdeu()) {
+                jogo.ganhou() ? alert("Você ganhou!!!") : alert("Você perdeu :(");
+                reinicia();
+            }
+        },200);
     };
+
+    var reinicia = function () {
+        jogo.reinicia();
+        mudaPlaceHolder("Palavra Secreta");
+        $lacunas.empty();
+    }
 
     var inicia = function () {
 
