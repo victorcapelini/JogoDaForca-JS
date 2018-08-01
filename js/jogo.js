@@ -9,14 +9,13 @@ var criaJogo = function (sprite) {
     }
 
     var setPalavraSecreta = function (palavra) {
-        palavraSecreta = palavra.toUpperCase();
+        palavraSecreta = palavra;
         criaLacunas();
         avancaEtapa();
     };
 
     var criaLacunas = function () {
         palavraAtual = Array(palavraSecreta.length).fill('');
-        avancaEtapa();
     }
 
     var getLacunas = function () {
@@ -45,8 +44,8 @@ var criaJogo = function (sprite) {
     };
 
     var ganhou = function () {
-        return lacunas.length
-            ? !lacunas.some(function (lacuna) {
+        return palavraAtual.length
+            ? !palavraAtual.some(function (lacuna) {
                 return lacuna == '';
             })
             : false;
