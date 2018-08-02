@@ -1,41 +1,39 @@
-var criaController = function (jogo) {
+const criaController = jogo => {
 
-    var $entrada = $('#entrada');
-    var $lacunas = $('.lacunas');
+    const $entrada = $('#entrada');
+    const $lacunas = $('.lacunas');
 
-    var exibeLacunas = function () {
+    const exibeLacunas = () => {
         $lacunas.empty();
-        jogo.getLacunas().forEach((lacuna) => {
-            $lacunas.append($("<li>").addClass("lacuna").text(lacuna));
-        });
+        jogo.getLacunas().forEach(lacuna => $lacunas.append($("<li>").addClass("lacuna").text(lacuna)));
     };
 
-    var mudaPlaceHolder = function (texto) {
+    const mudaPlaceHolder = texto => {
         entrada.value = "";
         $entrada.attr("placeholder", texto);
     };
 
-    var guardaPalavraSecreta = function () {
+    const guardaPalavraSecreta = () => {
         try {
             jogo.setPalavraSecreta($entrada.val().trim());
             $entrada.val('');
             mudaPlaceHolder('chute');
             exibeLacunas();
-            $entrada.attr("type","text");
+            $entrada.attr("type", "text");
         } catch (err) {
             alert(err.message);
-            
+
         }
     };
 
-    var leChute = function () {
+    const leChute = () => {
         try {
-            var chute = $entrada.val().trim().substr(0, 1);
+            const chute = $entrada.val().trim().substr(0, 1);
             $entrada.val('');
             jogo.processaChute(chute);
 
             exibeLacunas();
-            setTimeout(function () {
+            setTimeout(() => {
                 if (jogo.ganhouOuPerdeu()) {
                     jogo.ganhou() ? alert("Você ganhou!!!") : alert("Você perdeu :(");
                     reinicia();
@@ -48,16 +46,15 @@ var criaController = function (jogo) {
         }
     };
 
-    var reinicia = function () {
+    const reinicia = () => {
         jogo.reinicia();
         mudaPlaceHolder("Palavra Secreta");
-        $entrada.attr("type","password");
+        $entrada.attr("type", "password");
         $lacunas.empty();
     }
 
-    var inicia = function () {
-
-        $entrada.keypress(function (event) {
+    const inicia = function () {
+        $entrada.keypress(event => {
             if (event.which == 13) {
                 switch (jogo.getEtapa()) {
                     case 1:
@@ -70,5 +67,5 @@ var criaController = function (jogo) {
             }
         });
     }
-    return { inicia: inicia };
+    return { inicia};
 };
