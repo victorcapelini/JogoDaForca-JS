@@ -53,7 +53,7 @@ const criaController = jogo => {
         $lacunas.empty();
     }
 
-    const inicia = function () {
+    const inicia = () => {
         $entrada.keypress(event => {
             if (event.which == 13) {
                 switch (jogo.getEtapa()) {

@@ -26,7 +26,7 @@ const createSprite = selector => {
 
     let current = 0;
 
-    let last = frames.length - 1;
+    const last = frames.length - 1;
 
     $el.addClass(frames[current]);
 
