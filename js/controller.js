@@ -16,30 +16,42 @@ var criaController = function (jogo) {
     };
 
     var guardaPalavraSecreta = function () {
-        jogo.setPalavraSecreta($entrada.val().trim());
-        $entrada.val('');
-        mudaPlaceHolder('chute');
-        exibeLacunas();
+        try {
+            jogo.setPalavraSecreta($entrada.val().trim());
+            $entrada.val('');
+            mudaPlaceHolder('chute');
+            exibeLacunas();
+            $entrada.attr("type","text");
+        } catch (err) {
+            alert(err.message);
+            
+        }
     };
 
     var leChute = function () {
-        var chute = $entrada.val().trim().substr(0, 1);
-        $entrada.val('');
-        if (!chute == " ") {
+        try {
+            var chute = $entrada.val().trim().substr(0, 1);
+            $entrada.val('');
             jogo.processaChute(chute);
+
+            exibeLacunas();
+            setTimeout(function () {
+                if (jogo.ganhouOuPerdeu()) {
+                    jogo.ganhou() ? alert("Você ganhou!!!") : alert("Você perdeu :(");
+                    reinicia();
+                }
+            }, 200);
+
+        } catch (err) {
+            alert(err.message);
+
         }
-        exibeLacunas();
-        setTimeout(function(){
-            if (jogo.ganhouOuPerdeu()) {
-                jogo.ganhou() ? alert("Você ganhou!!!") : alert("Você perdeu :(");
-                reinicia();
-            }
-        },200);
     };
 
     var reinicia = function () {
         jogo.reinicia();
         mudaPlaceHolder("Palavra Secreta");
+        $entrada.attr("type","password");
         $lacunas.empty();
     }
 
